@@ -2,7 +2,9 @@
 name: ui-interaction-guidelines
 description: "Use when designing or reviewing web UI and interactions."
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
+  author: "liuxiaogang-com"
+  source: "https://github.com/liuxiaogang-com/ui-interaction-guidelines"
 ---
 
 ## 使用方式
