@@ -6,51 +6,112 @@
 
 本项目由 **liuxiaogang-com** 发起并维护，内容来自其实际项目经验、界面观察与持续积累的UI和交互偏好，经AI辅助整理为可执行的短规则。
 
-这些规则是实践经验与设计取舍，不是通用于所有项目的强制标准。项目明确约束优先，待确认偏好不作为默认强制要求。
+这些规则来自实践经验与设计取舍。项目的明确约束优先。待确认偏好不作为默认规则。
 
 唯一发布与更新仓库：https://github.com/liuxiaogang-com/ui-interaction-guidelines
 
+## 设计思路
+
+准则分两层：
+
+- **交互层（严格执行）**：开工前流程、四条交互原则、组件行为规范、交付前验收。这一层解决「莫名其妙的刷新」「点击后在原位置插入表单」「一排堆满按钮」这类操作逻辑问题。
+- **视觉层（自由发挥）**：只要求先声明视觉方向、全局统一变量，并避开少量模板化做法。具体风格由Agent按项目决定，避免千篇一律。
+
+组件规范只写用户能验证的行为，不规定外观。每个组件分「通用」「桌面」「移动」三段，Agent只读取当前任务涉及的组件文件。
+
 ## 文件说明
 
-- `SKILL.md`：供Agent读取的完整规则，包含Skill元数据，可离线使用。
-- `README.md`：项目来源、使用方式与更新说明。
+```text
+ui-interaction-guidelines/
+├── SKILL.md                  # 主文件：开工流程、交互原则、视觉层、形态对照表、组件索引、验收清单
+├── references/
+│   ├── components/           # 22 个组件的行为规范
+│   ├── patterns/             # 流程规范（登录注册）
+│   └── setup/                # 新项目初始化：基线样式、Browserslist、前缀、Stylelint、截图方式
+├── templates/
+│   └── AGENTS.md             # 复制到项目中的兜底规则与写作风格要求
+├── INSTALL.md                # 给 Agent 阅读的安装步骤
+└── README.md
+```
 
 公开仓库不包含私人聊天、内部来源记录或凭据。
 
-## 使用方式
+## 安装
 
-### 作为Skill
+### 方式一：让 Agent 自己安装（推荐）
 
-将本仓库内容放在目标Agent支持的Skill目录下，文件夹名使用 `ui-interaction-guidelines`：
+对任意 Agent 说一句：
 
-```text
-<目标Agent的Skill目录>/
-└── ui-interaction-guidelines/
-    ├── SKILL.md
-    └── README.md
-```
+> 阅读 https://raw.githubusercontent.com/liuxiaogang-com/ui-interaction-guidelines/main/INSTALL.md ，按步骤帮我安装这个 Skill。
 
-不同Agent的安装位置和加载方式可能不同，以其配置为准。本项目不绑定特定Agent、前端框架或组件库。
+Agent 会选择合适的安装方式，并询问你是否在当前项目加入兜底规则。
 
-### 作为上下文
-
-不支持Skill的工具也可以直接读取 `SKILL.md`，或将其内容加入项目上下文。开发、调整或审查界面时，按当前任务选择适用规则。
-
-新项目直接遵守；已有项目调整整体布局及滚动方式前，必须取得明确同意，不得借执行规范擅自重构。
-
-## 更新方式
-
-后续规则更新统一提交到本仓库的 `main` 分支，以Git提交记录追踪变化。
-
-若通过Git克隆安装，在该仓库目录运行：
+### 方式二：命令行
 
 ```bash
-git pull --ff-only
+npx skills add liuxiaogang-com/ui-interaction-guidelines -g
 ```
 
-若手动复制安装，下载最新 `SKILL.md` 后替换本地副本。更新前保留本地自定义内容；发生冲突时先人工核对，不强制覆盖。
+使用 Vercel 的 [Skills CLI](https://github.com/vercel-labs/skills)，会安装到本机已有的 Claude Code、Codex、Cursor 等 Agent 中。该工具默认收集匿名使用数据，设置环境变量 `DO_NOT_TRACK=1` 可关闭。
 
-目前未提供自动更新器或定时更新任务，也不要求Agent每次执行Skill时联网。仓库内容更新不代表各设备的本地副本已自动更新。
+### 方式三：git 克隆
+
+```bash
+git clone --depth 1 https://github.com/liuxiaogang-com/ui-interaction-guidelines.git ~/.claude/skills/ui-interaction-guidelines
+```
+
+把目标路径换成你所用 Agent 的 Skill 目录，各 Agent 的目录见 [INSTALL.md](INSTALL.md)。
+
+### 项目兜底规则（推荐，Codex 尤其需要）
+
+Agent 是否加载 Skill，取决于它对任务的判断。以功能为主的任务（如「加一个导出功能」）可能不会触发 Skill。
+
+把 `templates/AGENTS.md` 的内容加入项目根目录的 `AGENTS.md`（Codex、Cursor）或 `CLAUDE.md`（Claude Code），替换其中的占位内容。这个文件每次都会加载，能保证最重要的规则始终生效。用方式一安装时，Agent 会询问并帮你完成这一步。
+
+不支持 Skill 的工具，可以在规则文件中写明 `SKILL.md` 的路径，让它在涉及 UI 的任务中先读取。
+
+新项目直接遵守。已有项目调整整体布局和滚动方式前，必须取得用户明确同意。
+
+## 补充规则
+
+遇到Agent犯了新的错误时，在对应组件文件中补一条规则，并在「常见错误」里记录反例。写法要求：
+
+- 只写行为，不写外观。
+- 一句话只讲一个结论，写成可验证的结果。
+- 避免「可以…但不…，也不…」这类转折句。Agent会模仿规则的文风。
+
+## 更新
+
+### 自动更新
+
+Agent 在每个会话中首次使用本 Skill 时，会检查一次更新：
+
+- git 安装：执行 `git pull --ff-only`。
+- Skills CLI 安装：执行 `npx skills update ui-interaction-guidelines -y`。
+- 手动复制安装：无法自动更新。
+
+检查失败时 Agent 会直接跳过，继续当前任务，并在验收清单中注明。有更新时，Agent 会重新读取规则并告诉你。
+
+以下情况会跳过自动更新，需要手动更新：
+
+- 网络不可用。
+- Agent 运行在禁止联网或禁止写入 Skill 目录的沙箱中（如 Codex 的默认沙箱）。
+
+不想自动更新时，在项目规则文件中写一句：「不要自动更新 ui-interaction-guidelines」。
+
+### 手动更新
+
+对 Agent 说「更新 ui-interaction-guidelines Skill」，或自己运行：
+
+```bash
+# Skills CLI 安装
+npx skills update ui-interaction-guidelines
+
+# git 安装
+git -C <Skill 目录>/ui-interaction-guidelines pull --ff-only
+```
+
+规则更新统一提交到本仓库的 `main` 分支。每次更新的内容可在 Git 提交记录中查看。
 
 ## 支持这个项目
 
