@@ -6,7 +6,7 @@
 
 本项目由 **liuxiaogang-com** 发起并维护，内容来自其实际项目经验、界面观察与持续积累的UI和交互偏好，经AI辅助整理为可执行的短规则。
 
-这些规则来自实践经验与设计取舍。项目的明确约束优先。待确认偏好不作为默认规则。
+这些规则来自实践经验与设计取舍。项目的明确约束优先。
 
 唯一发布与更新仓库：https://github.com/liuxiaogang-com/ui-interaction-guidelines
 

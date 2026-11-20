@@ -19,11 +19,24 @@
 - **滚动条宽度**：Windows 上滚动条会占用宽度。给 `html` 设置 `scrollbar-gutter: stable`，弹窗锁定滚动时页面不横向跳动。Safari 18.2 起支持，旧版本忽略即可。
 
 ## 移动端与 iOS
-- **viewport**：`width=device-width, initial-scale=1, viewport-fit=cover`。
+
+### 禁止页面缩放（必须落实）
+输入框聚焦、双击、双指都不能让页面缩放。以下 4 项全部落实，缺一项都会在某些设备上漏掉：
+
+1. **viewport**：`width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover`。Android 上的浏览器据此禁止全部缩放。iOS Safari 据此阻止输入框聚焦放大，双指缩放的限制会被它忽略。
+2. **控件字号**：输入框、下拉、文本域的字号至少 16px。部分浏览器忽略 viewport 设置时，这一项防止聚焦放大。
+3. **CSS**：`html` 设置 `touch-action: pan-x pan-y`。禁止双击和双指缩放，保留上下左右滚动。
+4. **iOS Safari 兜底**：前三项落实后，iOS 上仍能双指缩放时，只加一段 JS：在 `document` 上监听 `gesturestart`，调用 `preventDefault()`。禁止再写其他拦截缩放的代码。
+
+需要缩放的特定区域（图片预览、地图、文档查看器）：
+- 使用对应的组件，在区域内实现缩放。页面本身保持不可缩放。
+- 给该区域设置 `touch-action: none`，手势交给组件处理。
+
+落实后在 iOS 和 Android 真机上分别验证。无法验证时，在验收清单的「未验证」中列出。
+
+### 其他
 - **横屏字号**：设置 `-webkit-text-size-adjust: 100%`，防止 iOS 横屏后文字变大。
 - **点击高亮**：设置 `-webkit-tap-highlight-color: transparent`，同时提供自己的按下反馈。
-- **双击缩放**：可点击元素设置 `touch-action: manipulation`。双指缩放的处理见 `SKILL.md` 末尾的待确认偏好。
-- **输入框放大**：输入框字号至少 16px，防止 iOS 聚焦时页面放大。
 - **控件外观**：输入框、下拉、按钮设置 `appearance: none` 后自定义样式，去掉 iOS 默认的圆角和内阴影。
 - **视口高度**：先写 `100vh` 作为回退，再写 `100dvh`。
 - **安全区**：底部固定的元素加上 `env(safe-area-inset-bottom)` 的内边距。
@@ -32,4 +45,5 @@
 ## 常见错误
 - 框架已有 reset，又引入 normalize.css，样式互相覆盖。
 - 为了去掉点击后的蓝框，全局写了 `outline: none`。
+- 只在 viewport 里写了 `user-scalable=no`，iOS 上仍然可以双指缩放。
 - 只写了英文字体，Windows 上中文显示为宋体。
