@@ -1,0 +1,11 @@
+# 所有文本文件统一使用 LF 换行，不受各人 core.autocrlf 设置影响
+* text=auto eol=lf
+
+# 二进制文件，不做换行转换
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
