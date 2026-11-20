@@ -27,7 +27,7 @@ ui-interaction-guidelines/
 ├── references/
 │   ├── components/           # 22 个组件的行为规范
 │   ├── patterns/             # 流程规范（登录注册）
-│   └── setup/                # 新项目初始化：基线样式、Browserslist、前缀、Stylelint、截图方式
+│   └── setup/                # 组件选型、基线样式、Browserslist、前缀、Stylelint、截图方式
 ├── templates/
 │   └── AGENTS.md             # 复制到项目中的兜底规则与写作风格要求
 ├── INSTALL.md                # 给 Agent 阅读的安装步骤

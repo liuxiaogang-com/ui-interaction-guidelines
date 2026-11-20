@@ -30,7 +30,7 @@ git clone --depth 1 https://github.com/liuxiaogang-com/ui-interaction-guidelines
 | Gemini CLI | `~/.gemini/skills` |
 | 其他 | 查阅该 Agent 文档中的 Skill 目录 |
 
-当前 Agent 不支持 Skill 时，跳过本步，直接执行第 3 步。
+当前 Agent 不支持 Skill 时，仍用上面的 git 命令克隆到任意目录（如 `~/ui-interaction-guidelines`），然后直接执行第 3 步。
 
 ## 2. 验证
 
