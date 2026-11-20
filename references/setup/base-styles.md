@@ -16,7 +16,10 @@
 - **自动填充**：Chrome 自动填充后输入框会变成黄色或蓝色。覆盖 `:-webkit-autofill` 样式，与输入框背景保持一致。
 - **数字输入框**：隐藏上下箭头，禁止滚轮改变数值。或改用文本框加 `inputmode="numeric"`。
 - **搜索框**：隐藏 `type="search"` 的原生清除按钮，使用自定义的清除按钮。
-- **滚动条宽度**：Windows 上滚动条会占用宽度。给 `html` 设置 `scrollbar-gutter: stable`，弹窗锁定滚动时页面不横向跳动。Safari 18.2 起支持，旧版本忽略即可。
+- **滚动条宽度**：Windows 上滚动条会占用宽度。给 `html` 设置 `scrollbar-gutter: stable`，内容变短、滚动条消失时，以及弹窗锁定滚动时，页面都不横向跳动。Safari 18.2 起支持，旧版本忽略即可。
+  - 组件库锁定滚动时，多数会给 `body` 加 `margin-right` 或 `padding-right` 来补偿滚动条宽度（如 Radix、Headless UI、MUI）。它和 `scrollbar-gutter` 同时生效时，页面会缩窄两次。
+  - 设置 `scrollbar-gutter` 后，用更高优先级的样式把组件库的补偿归零。Radix 的写法：`html body[data-scroll-locked] { margin-right: 0 !important; }`。组件库的补偿无法关闭时，不设置 `scrollbar-gutter`。
+  - 验证方法：打开下拉、弹窗、抽屉前后，页面右侧元素的位置不变。
 
 ## 移动端与 iOS
 

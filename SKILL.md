@@ -2,7 +2,7 @@
 name: ui-interaction-guidelines
 description: "Use whenever creating, modifying, or reviewing any frontend page, component, style, or interaction, including feature tasks that touch UI. 适用于页面、界面、前端、组件、样式、管理后台、表单、弹窗、抽屉、下拉、表格、列表、H5、移动端、小程序、登录注册等任务。Provides interaction principles, component behavior specs, desktop/mobile mapping, and a pre-delivery checklist."
 metadata:
-  version: "0.3.0"
+  version: "0.4.0"
   author: "liuxiaogang-com"
   source: "https://github.com/liuxiaogang-com/ui-interaction-guidelines"
 ---
@@ -184,7 +184,7 @@ metadata:
 - 禁止手写浏览器前缀，交给构建工具按 Browserslist 处理。`references/setup/base-styles.md` 中列出的非标准属性除外。
 
 ## 九、交付前验收（必做）
-1. 项目能运行时，截图检查。桌面用 1440px 宽，移动用 390px 宽，按平台选择。截图方式见 `references/setup/tooling.md` 第 5 节。
+1. 项目能运行时，截图检查。桌面用 1440px 宽，移动用 390px 宽，按平台选择。页面有交互时，截取关键交互状态，不只截首屏。截图方式和检查项见 `references/setup/tooling.md` 第 5 节。
 2. 对照本次涉及的原则和组件规范逐项检查。项目配置了 lint 或 Stylelint 时，运行并修复本次改动引入的报错。
 3. 未通过的项先修复再交付。无法修复的写明原因。
 4. 在回复末尾输出验收清单：

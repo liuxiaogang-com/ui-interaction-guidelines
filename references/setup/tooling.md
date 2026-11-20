@@ -47,7 +47,22 @@
    - macOS：`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`。
    - 这种方式只能截取首屏，无法点击和模拟触摸。适合检查布局、层级和溢出。
    - 命令会输出一些 ERROR 日志，通常和截图无关。以图片文件是否生成为准。
-3. **项目已安装 Playwright 时**，用它截图并检查交互。
-4. **以上都不可用时**，跳过截图，在验收清单中注明。
+3. **需要检查交互时**：用 Node 脚本通过 Chrome DevTools Protocol（CDP）驱动本机 Chrome 或 Edge。Node 22 起自带 WebSocket，无需安装依赖。
+   - 启动：`msedge --headless --remote-debugging-port=9333 --user-data-dir=<临时目录> about:blank`。从 `http://127.0.0.1:9333/json` 取页面的 `webSocketDebuggerUrl` 并连接。
+   - 常用命令：`Page.navigate`、`Runtime.evaluate`、`Input.dispatchMouseEvent`、`Input.dispatchKeyEvent`、`Input.insertText`、`Page.captureScreenshot`。移动端用 `Emulation.setDeviceMetricsOverride`（`mobile: true`）和 `Emulation.setTouchEmulationEnabled`。
+   - 用真实的鼠标和键盘事件操作。禁止用 `element.click()` 代替，它会绕过遮罩、焦点和禁用状态。
+   - 等待具体条件，如数据加载完成、弹层出现。弹层出现后再等动画结束（约 400ms）才定位和点击，否则坐标会偏。
+   - 用文本定位元素时精确匹配，或改用 `aria-label`。例如页码「3」也会匹配到「13」。
+   - 记录控制台的报错和警告。
+4. **项目已安装 Playwright 时**，用它截图并检查交互。
+5. **以上都不可用时**，跳过截图，在验收清单中注明。
+
+页面有交互时，按页面实际包含的内容截取这些状态：默认、加载中、空状态、打开下拉或菜单、打开弹窗或抽屉、字段校验错误、提交失败、移动端底部面板。
+
+同时检查：
+- 打开下拉、弹窗、抽屉前后，页面右侧元素的位置不变。
+- 弹层打开时，滚动鼠标或滑动屏幕，背景位置不变。
+- 弹层内按 Tab，焦点不离开弹层。关闭后焦点回到触发元素。
+- 删除、编辑、筛选之后，页码、其他筛选条件和滚动位置保持不变。
 
 截图后查看图片，对照原则和组件规范检查。截图文件放在临时目录，不提交到仓库。
