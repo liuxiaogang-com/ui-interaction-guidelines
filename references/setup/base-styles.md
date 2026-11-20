@@ -15,7 +15,7 @@
 - **自动填充**：Chrome 自动填充后输入框会变成黄色或蓝色。覆盖 `:-webkit-autofill` 样式，与输入框背景保持一致。
 - **数字输入框**：隐藏上下箭头，禁止滚轮改变数值。或改用文本框加 `inputmode="numeric"`。
 - **搜索框**：隐藏 `type="search"` 的原生清除按钮，使用自定义的清除按钮。
-- **滚动条宽度**：Windows 上滚动条会占用宽度。弹窗锁定背景滚动时补偿滚动条宽度，避免页面横向跳动。
+- **滚动条宽度**：Windows 上滚动条会占用宽度。给 `html` 设置 `scrollbar-gutter: stable`，弹窗锁定滚动时页面不横向跳动。Safari 18.2 起支持，旧版本忽略即可。
 
 ## 移动端与 iOS
 - **viewport**：`width=device-width, initial-scale=1, viewport-fit=cover`。
@@ -26,7 +26,7 @@
 - **控件外观**：输入框、下拉、按钮设置 `appearance: none` 后自定义样式，去掉 iOS 默认的圆角和内阴影。
 - **视口高度**：先写 `100vh` 作为回退，再写 `100dvh`。
 - **安全区**：底部固定的元素加上 `env(safe-area-inset-bottom)` 的内边距。
-- **滚动穿透**：弹窗和抽屉的内容区设置 `overscroll-behavior: contain`。需要支持 iOS 15 及更早版本时，打开弹窗期间额外锁定 `body`。
+- **滚动穿透**：弹窗和抽屉的滚动锁定按 `references/components/modal.md` 的「实现方式」处理，禁止手写触摸事件拦截。
 
 ## 常见错误
 - 框架已有 reset，又引入 normalize.css，样式互相覆盖。
