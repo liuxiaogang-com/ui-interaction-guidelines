@@ -2,7 +2,7 @@
 name: ui-interaction-guidelines
 description: "Use whenever creating, modifying, or reviewing any frontend page, component, style, or interaction, including feature tasks that touch UI. 适用于页面、界面、前端、组件、样式、管理后台、表单、弹窗、抽屉、下拉、表格、列表、H5、移动端、小程序、登录注册等任务。Provides interaction principles, component behavior specs, desktop/mobile mapping, and a pre-delivery checklist."
 metadata:
-  version: "0.4.0"
+  version: "0.5.0"
   author: "liuxiaogang-com"
   source: "https://github.com/liuxiaogang-com/ui-interaction-guidelines"
 ---
@@ -78,7 +78,8 @@ metadata:
 - 失败提示写明原因和用户能做什么。保留用户已输入的内容。
 - 删除等不可恢复的操作先确认，确认框写明后果。能做成可撤销的操作，优先提供撤销。
 - 列表、表格、搜索结果都要有空状态和加载失败状态。
-- 桌面端提供悬停、按下、焦点三种反馈。移动端每次点击都有明显的按下反馈。任何操作都不依赖悬停完成。
+- 所有可点击元素都有交互反馈，不只是按钮。桌面端有悬停、按下、焦点三种状态。移动端每次触摸都有按下反馈。任何操作都不依赖悬停完成。细则见 `references/components/interaction-states.md`。
+- 点击后跳转或打开弹层时，界面立即有可见的变化：按下反馈、弹层的出现动画或加载提示。禁止点击后界面静止不动地等待。
 - 点击、触摸、键盘操作后，控件回到正常样式。禁止残留悬停色、焦点框，或变成难以辨认的颜色。
 
 ## 三、布局与滚动
@@ -138,6 +139,7 @@ metadata:
 
 | 组件 | 文件 |
 |---|---|
+| 悬停、按下、焦点状态与动效（所有可点击元素） | `references/components/interaction-states.md` |
 | 按钮 | `references/components/button.md` |
 | 输入框 | `references/components/input.md` |
 | 表单与校验 | `references/components/form.md` |
