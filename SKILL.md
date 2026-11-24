@@ -2,7 +2,7 @@
 name: ui-interaction-guidelines
 description: "Use whenever creating, modifying, or reviewing any frontend page, component, style, or interaction, including feature tasks that touch UI. 适用于页面、界面、前端、组件、样式、管理后台、表单、弹窗、抽屉、下拉、表格、列表、H5、移动端、小程序、登录注册等任务。Provides interaction principles, component behavior specs, desktop/mobile mapping, and a pre-delivery checklist."
 metadata:
-  version: "0.5.0"
+  version: "0.6.0"
   author: "liuxiaogang-com"
   source: "https://github.com/liuxiaogang-com/ui-interaction-guidelines"
 ---
@@ -112,6 +112,14 @@ metadata:
 - 按钮文案用动词开头。
 - 示例数据要像真实数据：真实感的姓名、金额、日期，长短不一的文本。
 - 句子简短，一句只讲一个意思。
+- 每句说明文字都做删除测试：删掉后不影响用户完成任务、理解后果，就删掉。
+- 同一个对象全程用同一个名称。禁止混用「项目」「任务」「事项」指同一个东西。
+- 占位文字禁止重复标签。标签是「作者」时，占位文字不再写「请输入作者」。
+- 按钮和入口不清楚时，修改按钮和入口。禁止常驻「点击下方按钮即可保存」这类操作说明。
+- 只写已经确认的事实。功能没有实现时，禁止写「内容已保留」「可撤销」「已同步」。
+- 模拟功能标明是模拟。模拟发布的结果写「模拟发布完成」，禁止写「已发布」。
+- 费用、不可逆后果、可见范围、格式限制在用户做决定前直接显示。禁止为了简洁省略，禁止只放在 Tooltip 里。
+- 规范编号、验收结果、测试开关、实现说明禁止出现在产品界面上。
 
 ## 六、桌面与移动形态对照
 同一个组件在两端语义相同，形态和操作方式不同。禁止把桌面布局直接缩小搬到移动端。
@@ -165,7 +173,9 @@ metadata:
 
 | 流程 | 文件 |
 |---|---|
-| 登录与注册 | `references/patterns/login.md` |
+| 登录与注册、第三方登录 | `references/patterns/login.md` |
+| 编辑器、自动保存、发布 | `references/patterns/editor.md` |
+| 支付 | `references/patterns/payment.md` |
 
 | 工程配置 | 文件 |
 |---|---|
@@ -188,17 +198,21 @@ metadata:
 ## 九、交付前验收（必做）
 1. 项目能运行时，截图检查。桌面用 1440px 宽，移动用 390px 宽，按平台选择。页面有交互时，截取关键交互状态，不只截首屏。截图方式和检查项见 `references/setup/tooling.md` 第 5 节。
 2. 对照本次涉及的原则和组件规范逐项检查。项目配置了 lint 或 Stylelint 时，运行并修复本次改动引入的报错。
-3. 未通过的项先修复再交付。无法修复的写明原因。
-4. 在回复末尾输出验收清单：
+3. 走一遍真实任务，检查是否顺手：高频操作是否藏得太深，是否需要反复上下滚动，是否叠了多层弹窗，说明文字是否抢了主要内容。各项规则都通过时，这一步照样要做。
+4. 失败路径也要走：断网或接口报错后内容是否还在，能否重试，重试是否会重复执行。
+5. 未通过的项先修复再交付。无法修复的写明原因。
+6. 在回复末尾输出验收清单。每项结论只用：通过、未通过、未验证、不适用。写「不适用」时说明原因。
 
 ```text
 验收清单
 - 平台与断点：响应式，768px 切换
 - 原则 1～4：通过 / 未通过（原因）
+- 任务走查：通过 / 未通过（原因）
 - 涉及组件：select（通过）、modal（未通过：长内容时底部按钮被遮挡，已修复）
 - 已截图：桌面 1440 / 移动 390（Chrome 无头模式）
 - 代码检查：lint 通过，Stylelint 通过 / 未配置
 - Skill 更新：已是最新 / 已更新 / 已跳过（原因）
 - 已有代码中发现的问题（未修改）：…
-- 未验证：iOS Safari 真机、微信内置浏览器
+- 不适用：上传（本次没有文件上传）
+- 未验证：iOS Safari 真机、微信内置浏览器、真实支付渠道
 ```

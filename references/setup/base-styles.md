@@ -12,6 +12,7 @@
 - **焦点样式**：禁止全局 `outline: none`。用 `:focus-visible` 提供清晰可见的焦点样式。
 - **中文字体栈**：英文字体之后写中文系统字体，如 `-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif`。缺少中文字体时会回退到宋体。
 - **图片和媒体**：`img`、`svg`、`video` 设为 `display: block; max-width: 100%`，避免底部空隙和溢出。
+- **用户内容安全**：用户输入的内容作为文本显示。需要显示富文本或 Markdown 时，先经过净化库（如 DOMPurify）处理。禁止把用户内容直接写进 `innerHTML`、`v-html` 或 `dangerouslySetInnerHTML`。
 - **长文本**：长链接、长英文单词设置 `overflow-wrap: anywhere`，避免撑破布局。
 - **自动填充**：Chrome 自动填充后输入框会变成黄色或蓝色。覆盖 `:-webkit-autofill` 样式，与输入框背景保持一致。
 - **数字输入框**：隐藏上下箭头，禁止滚轮改变数值。或改用文本框加 `inputmode="numeric"`。
@@ -54,6 +55,7 @@ iOS、Android、Windows、macOS 的浏览器给原生控件加了各自的默认
 - **横屏字号**：设置 `-webkit-text-size-adjust: 100%`，防止 iOS 横屏后文字变大。
 - **点击高亮**：设置 `-webkit-tap-highlight-color: transparent`，同时提供自己的按下反馈。
 - **视口高度**：先写 `100vh` 作为回退，再写 `100dvh`。
+- **软键盘遮挡**：需要知道键盘弹出后的可视高度时，读取 `window.visualViewport` 并监听它的 `resize`。禁止写死键盘高度。不支持时退回普通滚动，保证输入框可以滚到可见位置。
 - **安全区**：底部固定的元素加上 `env(safe-area-inset-bottom)` 的内边距。
 - **滚动穿透**：弹窗和抽屉的滚动锁定按 `references/components/modal.md` 的「实现方式」处理，禁止手写触摸事件拦截。
 

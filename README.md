@@ -26,7 +26,7 @@ ui-interaction-guidelines/
 ├── SKILL.md                  # 主文件：开工流程、交互原则、视觉层、形态对照表、组件索引、验收清单
 ├── references/
 │   ├── components/           # 22 个组件的行为规范，以及通用的交互状态与动效
-│   ├── patterns/             # 流程规范（登录注册）
+│   ├── patterns/             # 流程规范（登录注册、编辑器与自动保存、支付）
 │   └── setup/                # 组件选型、基线样式、Browserslist、前缀、Stylelint、截图方式
 ├── templates/
 │   └── AGENTS.md             # 复制到项目中的兜底规则与写作风格要求
